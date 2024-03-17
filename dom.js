@@ -41,6 +41,24 @@ const validateInput = (input, validation) => {
   }
 }
 
+const validateEdit = (input, validaion) => {
+
+  if (input.innerHTML === '') {
+        
+    input.classList.remove('incorrect');
+
+  } else if (validation) {
+    
+    input.classList.remove('incorrect');
+    
+  } else {
+    input.classList.add('incorrect');
+    
+  }
+
+
+}
+
 const renderContacts = () => {
   list.innerHTML = '';
   contacts.forEach(contact => {
@@ -117,6 +135,8 @@ list.addEventListener('click', e => {
     
   }
 
+  
+
   if (editBtn) {
     const li = editBtn.parentElement;
     const name = li.children[1];
@@ -125,8 +145,13 @@ list.addEventListener('click', e => {
     const phonevalidacion = NUMBER_REGEX.test (phone.innerHTML)
     if (li.classList.contains('editando')) {
 
+      
+    }
+
       if (!namevalidacion || !phonevalidacion) {return;
       }
+
+      
 
       
       // Logica de negocio
@@ -135,7 +160,9 @@ list.addEventListener('click', e => {
           return {...contact, name: name.innerHTML, phone: phone.innerHTML}
         } else {
           return contact
+          
         }
+
       });
 
       localStorage.setItem('contacts', JSON.stringify(contacts));
@@ -163,8 +190,7 @@ list.addEventListener('click', e => {
       name.classList.add('border-edit');
       phone.classList.add('border-edit');
     }
-  }
-});
+  });
 
 
 (() => {
